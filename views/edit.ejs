@@ -14,13 +14,13 @@
 <body>
 <div class="container">
     <h1>-UPDATE-</h1>
-    <form method="POST" action="">
+    <form method="POST" action="">//actionที่ปล่อยว่างเพราะมันจะเช็คในlogin.jsว่าตอนนี้ทำอะไรอยู่ ถ้าeditก็ไปedit
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">@</span>
             </div>
             <input type="text" class="form-control" name="username" placeholder="Username" aria-label="Username"
-                aria-describedby="basic-addon1" value="<%=post.username%>">
+                aria-describedby="basic-addon1" value="<%=post.username%>"> //postคือค่าตรงlogin.jsบรรทัด145 ก็คือดึงค่าusernameของrecordนี้มาแปะโชว์
         </div>
 
         <div class="input-group mb-3">
@@ -28,12 +28,12 @@
                 <span class="input-group-text" id="basic-addon1">#</span>
             </div>
             <input type="text" class="form-control" name="password" placeholder="Password" aria-label="Password"
-                aria-describedby="basic-addon1" value="<%=post.password%>">
+                aria-describedby="basic-addon1" value="<%=post.password%>">//เอาค่าpasswordของrecordนี้มาแปะโชว์
         </div>
 
         <div class="input-group mb-3">
             <input type="text" class="form-control" name="email" placeholder="Recipient's email" aria-label="Recipient's email"
-                aria-describedby="basic-addon2" value="<%=post.email%>">
+                aria-describedby="basic-addon2" value="<%=post.email%>">//เอาค่าemailของrecordนี้มาแปะโชว์
             <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2">@swu.ac.th</span>
             </div>
@@ -41,9 +41,9 @@
 
         <div class="form-group row">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-success">Update</button>
+                <button type="submit" class="btn btn-success">Update</button>//กดupdateเรียกผ่านbuttonปกติ เสร็จแล้วจะไปดูที่formบรรทัด17
             </div>
-            <a class="btn btn-danger" href="/webboard">Back</a>
+            <a class="btn btn-danger" href="/webboard">Back</a> //กดปุ่มbackเราถึงจะเรียกapi
         </div>
     </form>
 

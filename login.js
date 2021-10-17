@@ -133,32 +133,32 @@ app.get("/home", function(request, response) {
     //   res.end();
   });
   
-  app.get("/edit/:id", (req, res) => {
-    const edit_postID = req.params.id;
+  app.get("/edit/:id", (req, res) => {//เรียกผ่านตัวget edit/parameter เช่น edit/2
+    const edit_postID = req.params.id; //ทำการกดeditที่recordไหนมันก้จะส่งค่าอันนั้นมา
   
     connection.query(
-      "SELECT * FROM accounts WHERE id=?",
+      "SELECT * FROM accounts WHERE id=?", //idคือค่าที่เราเลือกedit idนี้มาจากedit_postID
       [edit_postID],
-      (err, results) => {
-        if (results) {
-          res.render("edit", {
-            post: results[0],
+      (err, results) => { //จะดึงเอาค่าrecordนั้นแล้วเก็บไว้ในresult
+        if (results) { //เอาresultมาเช็ค 
+          res.render("edit", {//ถ้าresultทำงานมันก็จะrenderไปที่ตัวedit
+            post: results[0],//มันก็จะส่งค่าไปที่post เสร็จแล้วก็จะกระโดดไปที่edit.ejs
           });
         }
       }
     );
   });
   
-  app.post("/edit/:id", (req, res) => {
+  app.post("/edit/:id", (req, res) => { //ทำการส่งquery edit idมาแล้วก็ค่าusername password email idที่เรากรอกไว้มาupdate
     const update_username = req.body.username;
     const update_password = req.body.password;
     const update_email = req.body.email;
     const id = req.params.id;
     connection.query(
-      "UPDATE accounts SET username = ?,password = ? ,email = ? WHERE id = ?",
+      "UPDATE accounts SET username = ?,password = ? ,email = ? WHERE id = ?",//ค่าที่เราใส่ให้updateก็จะถูกupdateไปตามparameterด้านล่าง
       [update_username, update_password, update_email, id],
       (err, results) => {
-        if (results.changedRows === 1) {
+        if (results.changedRows === 1) { //ดูว่าเกิดการเปลี่ยนแปลงไหมก็ดูที่properties changedRows ถ้าเปลี่ยนแปลงสำเร็จก็จะเป็น1
           console.log("Post Updated");
         }
         return res.redirect("/webboard");
