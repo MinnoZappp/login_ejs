@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Webboard</title> //มีการเรียกใช้แบบboostrapแบบcdn
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+</head>
+<body>
+<div class="container"> //ในการช่วยจัด
+    <div class="text-left"> //ชิดซ้ายไว้
+        <span class="text-left">CRUD - [Create-Read-Update-Delete] </span>
+        <span class="text-right"><a href="/signout" class="btn btn-danger">Sign Out</a></span> 
+        //แปลงลิ้งค์ให้เป็นตัวปุ่มและก็ไปเรียกapisign outเมื่อทำการกดปุ่ม sign out
+    </div>
+    <hr>
+    <h1>-READ-</h1>
+    <p>
+        <a class="btn btn-primary" href="/add">Add</a>//สร้างปึุ่มจากลิ้งเหมือนเดิม โดยให้ลิ้งไปที่apiที่ชื่อว่าadd
+    </p>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th> //# = id
+                <th scope="col">Username</th>
+                <th scope="col">Password</th>
+                <th scope="col">Email</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+       
+           <% for(var i=0; i < posts.length; i++) { %> //การตรวจสอบว่าเราจะเอารายการจากdatabaseกี่record โดยดึงobject postทีละrecord โดยดึงด้วยfor loop
+                                                        // object posts ตัวนี้คือตัวเดียวกับที่ส่งมาจากไฟล์login.js ตรงบรรทัดที่103
+                                                        // ถ้าiยังมีค่าความยาวน้อยกว่าค่าความยาวของpostก้ให้สร้างเข้ามา1row โดยใน1rowให้สร้างcolumn6column
+                                                        //โดยแต่ละcolumnให้ไปดึงค่าobject post มาจากlogin.jsในตำแหน่งที่i โดยเริ่มจากrecord0
+                                                        //<%คือการใช้ejsควบคุมเฉยๆ
+           <tr>
+               <td><%= posts[i].id %></td>               //<%= คือการควบคุมและแสดงผลด้วย
+               <td><%= posts[i].username %></td>
+               <td><%= posts[i].password %></td>
+                <td><%= posts[i].email %></td>
+                <td><a class="btn btn-warning" href="edit/<%= posts[i].id %>" </a>Edit </a> </td> //apiที่มีค่าparamater เช่น edit/1 เพื่อส่งไปค้นในdatabase
+                <td><a class="btn btn-danger" href='delete/<%= posts[i].id %>' </a>Delete </a> </td>
+           </tr>
+           <% } %>
+            
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
