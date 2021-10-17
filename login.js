@@ -110,25 +110,25 @@ app.get("/home", function(request, response) {
         // res.end();
   });
   
-  app.get("/add", (req, res) => {
-    res.render("add.ejs");
-  });
+  app.get("/add", (req, res) => { //api add เมื่อเรากดปุ่มaddเมื่อไหร่มันจะกระโดดมาที่ตรงนี้ และในหน้าเว็บมันจะเรียกฟอร์มและขึ้นนให้เรากรอก
+    res.render("add.ejs");//แล้วไปrenderที่add ejsไฟล์ จะใส่ejsหรือไม่ใส่ก้ได้
+  });//api addมีอยู่2ส่วน ส่วนของgetกับpost method
   
-  app.post("/add", (req, res) => {
+  app.post("/add", (req, res) => { //post methodคือตอนที่addข้อมูลหรือกรอกเสร็จและsubmitแล้ว และข้อมูลเพิ่มขึ้นมา อันนั้นคือpost
     const username = req.body.username;
     const password = req.body.password;
-    const email = req.body.email;
-    const post = {
+    const email = req.body.email; //ตรงreq3อันนี้ ใช้หน้าที่ของbody-parserทั้งหมด
+    const post = { //ตัวpost เหมือนตัวdictonaryที่มีkeyและvalueในการดึงไปใช้งาน
       username: username,
       password: password,
       email: email
     };
-    if (req.session.loggedin)
-      connection.query("INSERT INTO accounts SET ?", post, (err) => {
+    if (req.session.loggedin) //ถ้าsessionloginยังทำงานอยู่ก้ให้insertแต่ถ้าเข้ามาโดยไม่ได้login มันก็จะไม่ทำงาน
+      connection.query("INSERT INTO accounts SET ?", post, (err) => { //?คือค่าvalueที่เราใส่ โดยใส่จากpost postมาจากไฟลือีกไฟล์หนึ่งที่ส่งเข้ามา.ejs
         console.log("Data Inserted");
-        return res.redirect("/webboard");
+        return res.redirect("/webboard");//insertสำเร็จมันจะredirectไปที่api webboard
       });
-    else res.send("You must to login First!!!");
+    else res.send("You must to login First!!!"); //และกระโดดมาที่ตรงนี้
     console.log("You must to login First!!!");
     //   res.end();
   });
